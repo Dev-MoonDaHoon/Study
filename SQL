@@ -1,5 +1,5 @@
 
-/*********************6장 LIKE 실습*********************/ TIP. LIKE ('%') 검색은 NULL을 가져오지 않는다 
+##/*********************6장 LIKE 실습*********************/ TIP. LIKE ('%') 검색은 NULL을 가져오지 않는다 
 #1번. 
   SELECT prod_name, prod_desc FROM Products WHERE prod_desc LIKE '%toy%';
 
@@ -19,7 +19,7 @@
     FROM Products 
    WHERE prod_desc LIKE ('%toy%carrots%');
 
-/*********************5장 WHERE(in, not) 실습*********************/
+##/*********************5장 WHERE(in, not) 실습*********************/
 #1번.
   SELECT vend_name 
     FROM Vendors 
@@ -30,7 +30,7 @@
     FROM OrderItems 
    WHERE prod_id IN ('BR01','BR02','BR03') AND quantity >= 100;
 
-/*********************4장 WHERE 실습*********************/
+##/*********************4장 WHERE 실습*********************/
 #1번.
   SELECT prod_name 
     FROM Products 
@@ -52,7 +52,7 @@
    WHERE prod_price BETWEEN 3 AND 6 
    ORDER BY prod_price ;
 
-/*********************3장 ORDER BY 실습*********************/
+##/*********************3장 ORDER BY 실습*********************/
 #1번. 
   SELECT cust_name 
     FROM Customers 
@@ -68,7 +68,7 @@
     FROM OrderItems 
    ORDER BY quantity desc, item_price desc;
 
-/*********************2장 단순 SELECT 실습*********************/
+##/*********************2장 단순 SELECT 실습*********************/
 #1번. Customers 테이블에서 모든 고객 ID(cust_id)를 가져오는 SQL문
   SELECT cust_id 
     FROM Customers;
