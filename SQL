@@ -1,1 +1,13 @@
-<h1> SQL 공부 </h1>
+#2장 단순 SELECT 실습
+#1번. Customers 테이블에서 모든 고객 ID(cust_id)를 가져오는 SQL문
+  SELECT cust_id 
+    FROM Customers;
+#2번. OrderItems 테이블에는 주문 목록을 모두 저장(일부는 여러번 주문) 주문한 제품 목록(prod_id)를 가져오는 SQL문(고유한 제품 목록 7개의 행으로 표시
+  SELECT DISTINCT prod_id
+    FROM OrderItems;
+#3번. Customers 테이블에서 모든 열을 가져오는 SQL문을 작성해 보고 고객ID만 가져오는 SELCT문도 작성, 한 문장을 주석 처리하여 하나만 실행
+  SELECT * 
+    FROM Customers;
+
+/* SELECT CUST_ID
+     FROM Customers;*/
