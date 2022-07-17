@@ -1,1 +1,6 @@
-<h3> SQL 차근차근 정리 </h3>
+#SQL 차근차근 정리
+
+## CRUD 기본 (CREATE,READ,UPDATE,DELETE)
+```
+SELECT * FROM DUAL
+```
