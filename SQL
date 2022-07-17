@@ -1,7 +1,79 @@
+/*********************10장 GROUPING 실습*********************/
+#TIP GROUP BY 절에는 별칭은 사용할 수 없고 가변형 길이의 데이터 형은 사용할 수 없다
+#TIP 그룹 함수 명령문을 제외하고 SELECT 절에 있는 모든 열은 GROUP BY 절에 존재해야 한다
+#TIP 그룹핑하는 열의 행에 NULL값이 있다면, NULL도 그룹으로 가져온다. 여러 행이 NULL값을 가진다면, 모두 함께 그룹핑된다.
+#TIP WHERE은 그룹핑 하기 전에 수행되고 HAVING은 그룹핑 후에 수행된다
 
-##/*********************6장 LIKE 실습*********************/ TIP. LIKE ('%') 검색은 NULL을 가져오지 않는다 
 #1번. 
-  SELECT prod_name, prod_desc FROM Products WHERE prod_desc LIKE '%toy%';
+  SELECT order_num, COUNT(order_num) AS order_lines 
+    FROM OrderItems 
+   GROUP BY order_num  
+   ORDER BY order_lines;
+   
+#2번.
+  SELECT vend_id, MIN(prod_price) AS cheapest_item 
+    FROM Products 
+   GROUP BY vend_id  
+   ORDER BY cheapest_item;
+
+#3번.
+  SELECT order_num, SUM(quantity) 
+    FROM OrderItems 
+   GROUP BY order_num 
+  HAVING SUM(quantity) >= 100;
+  
+#4번.
+  SELECT order_num, SUM(quantity*item_price) 
+    FROM OrderItems 
+   GROUP BY order_num 
+  HAVING SUM(quantity*item_price) >= 1000;
+/*********************9장 함수 실습*********************/ 
+#TIP GROUP 함수는 NULL값만 가진 데이터는 무시한다 EX) COUNT(*) 전체 조회, COUNT(CUST_NAME) - CUST_NAME이 NULL이면 COUNT X  
+
+#1번. 
+  SELECT SUM(quantity) AS ALL_SALES 
+    FROM OrderItems;
+
+   
+#2번.
+  SELECT SUM(quantity) 
+    FROM OrderItems 
+   WHERE prod_id = 'BR01';
+
+#3번.
+  SELECT MAX(item_price) AS max_price 
+    FROM OrderItems 
+   WHERE item_price <= 10;
+
+
+/*********************8장 함수 실습*********************/ 
+#1번. 
+  SELECT cust_id, cust_name, CONCAT(LEFT(cust_name ,2),LEFT(cust_city ,3)) AS user_login 
+    FROM Customers;
+
+   
+#2번.
+  SELECT order_num, order_date 
+    FROM Orders 
+   WHERE DATE_FORMAT(order_date,'%Y%m') = '202001' 
+   ORDER BY order_num, order_date; 
+    
+
+/*********************7장 계산필드 실습*********************/ ORACLE ||, MYSQL CONCAT()
+#1번. 
+  SELECT vend_id, vend_name AS vname, vend_address AS vadress, vend_city AS vcity 
+    FROM Vendors 
+   ORDER BY vname;
+   
+#2번.
+  SELECT prod_id, prod_price, prod_price*0.9 AS sale_price 
+    FROM Products 
+    
+/*********************6장 LIKE 실습*********************/ TIP. LIKE ('%') 검색은 NULL을 가져오지 않는다 
+#1번. 
+  SELECT prod_name, prod_desc 
+    FROM Products 
+   WHERE prod_desc LIKE '%toy%';
 
 #2번.
   SELECT prod_name, prod_desc 
