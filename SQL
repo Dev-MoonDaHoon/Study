@@ -1,3 +1,54 @@
+/*********************13장 고급테이블 조인 실습*********************/
+TIP 서브쿼리를 이용한 같은 테이블 두번 참조보단 셀프조인이 더 빠르다 
+TIP FULL OUTER JOIN은 Maria DB, MySQL, SQLite에서는 지원하지 않는다
+TIP 조인 조건을 걸지 않으면 카티전 곱의 결과를 반환한다 (FROM 테이블 행 * JOIN 테이블 행)
+
+#1번.
+  SELECT A.cust_id, B.order_num 
+    FROM Customers A 
+   INNER JOIN Orders B ON A.cust_id = B.cust_id 
+   ORDER BY A.cust_id;
+    
+#2번.
+  SELECT A.cust_id, B.order_num 
+    FROM Customers A 
+    LEFT OUTER JOIN Orders B ON A.cust_id = B.cust_id 
+   ORDER BY A.cust_id;
+   
+#3번.
+  SELECT B.prod_id ,A.order_num 
+    FROM OrderItems A 
+   RIGHT OUTER JOIN Products B ON A.prod_id = B.prod_id 
+   ORDER BY B.prod_id;
+   
+#4번.
+  SELECT B.prod_id, SUM(A.quantity) 
+    FROM OrderItems A 
+   RIGHT OUTER JOIN Products B ON A.prod_id = B.prod_id 
+   GROUP BY B.prod_id 
+   ORDER BY B.prod_id;
+   
+#5번.
+  SELECT A.vend_id, COUNT(B.prod_id) 
+    FROM Vendors A 
+    LEFT OUTER JOIN Products B ON A.vend_id = B.vend_id 
+   GROUP BY A.vend_id;
+
+/*********************12장 이너조인 실습*********************/
+#1번. 
+  SELECT B.order_num, A.cust_name 
+    FROM Customers A 
+   INNER JOIN Orders B ON A.cust_id = B.cust_id 
+   ORDER BY B.order_num ;
+
+#2번.
+  SELECT B.order_num, A.cust_name, SUM(C.quantity * C.item_price) AS order_total 
+    FROM Customers A 
+   INNER JOIN Orders B ON A.cust_id = B.cust_id 
+   INNER JOIN OrderItems C ON B.order_num = C.order_num  
+   GROUP BY B.order_num, A.cust_name 
+   ORDER BY B.order_num ;
+
 /*********************11장 서브쿼리 실습*********************/
 #1번. 서브쿼리를 사용하여 10 또는 그 이상의 가격으로 제품을 구매한 고객 목록을 반환하라. OrderItems 테이블에서 조건에 맞는 주문 번호(order_num)를 가져온 다음, Orders 테이블에서 주문번호와 일치하는 주문에 대한 고객 ID(cust_id)를 검색한다.
   SELECT cust_id 
