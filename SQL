@@ -1,3 +1,58 @@
+/*********************16장 UPDATE,DELETE 실습*********************/
+#TIP 열을 삭제할 때에는 열=NULL을 사용한다
+#TIP 외래키를 설정해놓으면 참조무결성을 지키기 위해 외부 테이블에 키값을 가지고 있지 않는 데이터를 삽입, 수정 할 수 없고 외부 테이블에 키 값으로 사용되는 행 또한 삭제 할 수 없다
+#TIP 테이블의 모든행을 삭제할 때에는 DELETE문 보다 TRUNCATE TABLE 문이 훨씬 빠르다(데이터 변경 기록 x)
+
+#1번.
+  UPDATE Vendors 
+     SET vend_name = UPPER(vend_name);
+  
+  UPDATE Customers 
+     SET cust_state = UPPER(cust_state);
+
+#2번.
+  DELETE 
+    FROM Customers 
+   WHERE cust_id = '1000000006';
+
+/*********************15장 INSERT 실습*********************/
+#TIP 테이블 자체를 복사할 때에는 CREATE TABLE 복사 테이블명 AS SELECT * FROM 원본테이블명;을 사용한다
+
+#1번.
+  INSERT INTO Customers(cust_id,cust_name,cust_address,cust_city,cust_state,cust_zip,cust_country,cust_contact,cust_email) 
+  VALUES ('1000000006','DalMoon','123Street','Seoul','SE','82828','KOREA','John Smith','');
+
+#2번.
+  CREATE TABLE OrdersBak AS SELECT * FROM Orders;
+  CREATE TABLE OrderItemsBak AS SELECT * FROM OrderItems;
+
+/*********************14장 UNION 실습*********************/
+#TIP UNION에서 여러 개의 다른 열 이름을 사용하면 첫번째 열이름을 선택한다
+#TIP 따라서 정렬 조건을 줄때에도 첫번째 열이름을 사용해야 에러가 나지 않는다 
+
+#1번.
+  SELECT prod_id 
+    FROM OrderItems 
+   WHERE prod_id LIKE 'BNBG%' 
+   UNION 
+  SELECT prod_id 
+    FROM OrderItems 
+   WHERE quantity = 100;
+
+#2번.
+  SELECT DISTINCT prod_id 
+    FROM OrderItems 
+   WHERE prod_id LIKE 'BNBG%' OR quantity = 100;
+
+#3번.
+  SELECT prod_name  
+    FROM Products 
+   UNION  
+  SELECT cust_name 
+    FROM Customers 
+   ORDER BY prod_name;
+
+
 /*********************13장 고급테이블 조인 실습*********************/
 TIP 서브쿼리를 이용한 같은 테이블 두번 참조보단 셀프조인이 더 빠르다 
 TIP FULL OUTER JOIN은 Maria DB, MySQL, SQLite에서는 지원하지 않는다
