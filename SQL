@@ -1,3 +1,26 @@
+/*********************19장 저장 프로시저 실습x 정리 *********************/
+#TIP 저장 프로시저 이점 단순성, 보안성, 성능
+#TIP 저장 프로시저 단점 DBMS마다 달라 이식성이 낮음, 사용하기 까다롭고 DBA가 저장권한을 보통 주지 않음 
+
+/*********************18장 뷰 실습*********************/
+#TIP 뷰를 사용하는 이유 재사용, 복잡한 SQL 단순화, 테이블 보호
+#TIP 많은 DBMS는 뷰 쿼리에서 ORDER BY를 금지한다 
+  CREATE VIEW CustomersWithOrders AS 
+    SELECT A.* 
+      FROM Customers A 
+     INNER JOIN Orders B ON A.cust_id = B.cust_id ;
+  
+  SELECT * FROM CustomersWithOrders;
+
+
+/*********************17장 테이블 수정 실습*********************/
+#TIP ORACLE DEFAULT SYSDATE, MYSQL DEFAULT CURRENT_DATE()
+#TIP ALTER TABLE은 데이터가 있으면 사용 불가 
+#TIP 테이블 변경은 되돌릴 수 없는 작업이 많다(열의 삭제 등)
+
+  ALTER TABLE Vendors 
+    ADD vend_web VARCHAR(100) NULL;
+
 /*********************16장 UPDATE,DELETE 실습*********************/
 #TIP 열을 삭제할 때에는 열=NULL을 사용한다
 #TIP 외래키를 설정해놓으면 참조무결성을 지키기 위해 외부 테이블에 키값을 가지고 있지 않는 데이터를 삽입, 수정 할 수 없고 외부 테이블에 키 값으로 사용되는 행 또한 삭제 할 수 없다
